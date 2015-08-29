@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>com.test.selenium.webdriver.test</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>js-performance</module>
+    </modules>
 
 
     <properties>
@@ -17,6 +21,18 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.test.selenium</groupId>
+            <artifactId>com.test.selenium.common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.test.selenium</groupId>
+            <artifactId>com.test.selenium.visualizer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>com.test.selenium</groupId>
             <artifactId>com.test.selenium.webdriver.manager</artifactId>
