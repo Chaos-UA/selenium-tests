@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>com.test.selenium.webdriver</artifactId>
+        <groupId>com.test.selenium</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>com.test.selenium.webdriver.manager</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.target.jar.name>web-driver-manager</project.build.target.jar.name>
+        <project.build.target.directory.driver.jars>./target/web-drivers</project.build.target.directory.driver.jars>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.test.selenium</groupId>
+            <artifactId>com.test.selenium.webdriver.common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${project.build.target.directory.driver.jars}"
+                                      verbose="true"
+                                      overwrite="true">
+                                    <fileset dir="../phantomjs1/target/build"/>
+                                </copy>
+                                <copy todir="${project.build.target.directory.driver.jars}"
+                                      verbose="true"
+                                      overwrite="true">
+                                    <fileset dir="../firefox/target/build"/>
+                                </copy>
+                                <copy todir="${project.build.target.directory.driver.jars}"
+                                      verbose="true"
+                                      overwrite="true">
+                                    <fileset dir="../chrome/target/build"/>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Main build -->
+                            <finalName>${project.build.target.jar.name}</finalName>
+                            <outputDirectory>${project.build.target.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
