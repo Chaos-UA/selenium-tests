@@ -18,13 +18,13 @@ public class ChomeWebDriverFactory extends WebDriverFactory{
     }
 
     @Override
-    public WebDriver createWebDriver(Settings settings) {
+    public WebDriver createWebDriver() {
         ChromeDriverService chromeDriverService = new ChromeDriverService.Builder()
                 .usingDriverExecutable(new File("/usr/lib/chromium-browser/chromedriver"))
                 .usingAnyFreePort()
                 .build();
         ChromeOptions chromeOptions = new ChromeOptions();
         ChromeDriver chromeDriver = new ChromeDriver(chromeDriverService);
-        return new RemoteDriverWrapper(chromeDriver);
+        return new RemoteDriverWrapper(chromeDriver, chromeDriverService);
     }
 }

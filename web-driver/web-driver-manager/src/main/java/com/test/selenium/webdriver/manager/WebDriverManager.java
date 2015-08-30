@@ -54,6 +54,7 @@ public class WebDriverManager {
                 }
             }
             LogUtil.getLogger().info("Web driver factories has initialized");
+            Collections.shuffle(webDriverFactories);
             WEB_DRIVER_FACTORIES = webDriverFactories.toArray(new WebDriverFactory[0]);
         }
         catch (Throwable t) {

@@ -15,17 +15,17 @@ public class PhantomjsWebDriverFactory extends WebDriverFactory {
 
     @Override
     public String getName() {
-        return "chrome-driver";
+        return "phantomjs-driver";
     }
 
     @Override
-    public WebDriver createWebDriver(Settings settings) {
+    public WebDriver createWebDriver() {
         PhantomJSDriverService service = new PhantomJSDriverService.Builder()
                 .usingAnyFreePort()
                 .usingPhantomJSExecutable(new File("/home/volodymyr/Programs/phantomjs/bin/phantomjs"))
                 .build();
         Capabilities capabilities = new DesiredCapabilities();
         PhantomJSDriver phantomJSDriver = new PhantomJSDriver(service, capabilities);
-        return new RemoteDriverWrapper(phantomJSDriver);
+        return new RemoteDriverWrapper(phantomJSDriver, service);
     }
 }

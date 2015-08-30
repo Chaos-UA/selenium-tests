@@ -14,11 +14,11 @@ public class FireFoxWebDriverFactory extends WebDriverFactory {
 
     @Override
     public String getName() {
-        return "chrome-driver";
+        return "firefox-driver";
     }
 
     @Override
-    public WebDriver createWebDriver(Settings settings) {
+    public WebDriver createWebDriver() {
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         FirefoxBinary firefoxBinary = new FirefoxBinary(new File("/usr/bin/firefox"));
         FirefoxDriver firefoxDriver = new FirefoxDriver(firefoxBinary, firefoxProfile);

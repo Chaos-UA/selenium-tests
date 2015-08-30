@@ -56,47 +56,13 @@ public class TestVisualizations {
 
 
 
-        FxUtil.runAndWait(() -> {
-            Stage stage = new Stage();
-            Group root = new Group();
 
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
+        Thread.sleep(1000000L);
+    }
 
-
-            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
-                    "January",
-                    "February",
-                    "January2",
-                    "March")));
-            yAxis.setLabel("Value");
-
-            final StackedBarChart<Number, String> stackedBarChart = new StackedBarChart<>(yAxis, xAxis);
-            stackedBarChart.setTitle("StackedBarChart");
-
-            XYChart.Series<Number, String> series1 = new XYChart.Series();
-            series1.setName("XYChart.Series 1");
-
-            series1.getData().add(new XYChart.Data(100, "January"));
-            series1.getData().add(new XYChart.Data(200, "February"));
-            series1.getData().add(new XYChart.Data(50, "March"));
-
-            XYChart.Series<Number, String> series2 = new XYChart.Series();
-            series2.setName("XYChart.Series 2");
-
-            series2.getData().add(new XYChart.Data(150, "January2"));
-            series2.getData().add(new XYChart.Data(100, "February"));
-            series2.getData().add(new XYChart.Data(60, "March"));
-
-            stackedBarChart.getData().addAll(series1, series2);
-
-            stackedBarChart.prefWidthProperty().bind(stage.widthProperty());
-            stage.heightProperty().addListener(v -> stackedBarChart.setPrefHeight(stage.getHeight() - 50));
-            root.getChildren().addAll(stackedBarChart);
-
-            stage.setScene(new Scene(root, 800, 600));
-            stage.show();
-        });
+    @Test
+    public void testLineChart() throws InterruptedException {
+        //visualizerService.showBar(null);
         Thread.sleep(1000000L);
     }
 

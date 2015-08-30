@@ -1,10 +1,14 @@
 package com.test.selenium.webdriver.common;
 
 
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WebDrivedWatcher implements WebDriver {
+public class WebDriverWatcher implements WebDriver {
     private static final long STATUS_CATCH_INTERVAL = 500;
 
     private final WebDriver webDriver;
@@ -13,10 +17,11 @@ public class WebDrivedWatcher implements WebDriver {
     private final List<ProcessStatus> processStatuses = new LinkedList<>();
     private transient boolean isClosed;
 
-    public WebDrivedWatcher(WebDriver webDriver) {
+    public WebDriverWatcher(WebDriver webDriver) {
         this.webDriver = webDriver;
         this.createdAt = System.currentTimeMillis();
         watcher = new Thread() {
+
             @Override
             public void run() {
                 while (!isClosed) {
@@ -32,12 +37,15 @@ public class WebDrivedWatcher implements WebDriver {
         };
     }
 
-    private void catchProcessStatus() {
-        // ps -p 6305 -o pid,%cpu,rss
-        double cpu = 5;
-        int rss = 5;
+    public List<ProcessStatus> getProcessStatuses() {
+        return processStatuses;
+    }
 
-        processStatuses.add(new ProcessStatus(rss, cpu, (int) (System.currentTimeMillis() - createdAt)));
+    private void catchProcessStatus() {
+        processStatuses.add(ProcessUtil.getProcessStatusWithSubprocesses(
+                getProcessId(),
+                (int) (System.currentTimeMillis() - createdAt))
+        );
     }
 
     @Override
@@ -91,39 +99,8 @@ public class WebDrivedWatcher implements WebDriver {
         return webDriver.getProcessId();
     }
 
-    public static class ProcessStatus {
-
-        /**
-         * Sum of rss memory usage by process and all its child processes
-         */
-        private final int rss;
-
-        /**
-         * CPU usage in percent by process and all its child processes
-         */
-        private final double cpu;
-
-        /**
-         * Time since driver created
-         */
-        private final int time;
-
-        public ProcessStatus(int rss, double cpu, int time) {
-            this.rss = rss;
-            this.cpu = cpu;
-            this.time = time;
-        }
-
-        public int getRss() {
-            return rss;
-        }
-
-        public double getCpu() {
-            return cpu;
-        }
-
-        public int getTime() {
-            return time;
-        }
+    @Override
+    public String getName() {
+        return webDriver.getName();
     }
 }

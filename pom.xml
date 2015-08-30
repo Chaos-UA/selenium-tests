@@ -23,9 +23,6 @@
         <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
     </properties>
 
-    <dependencies>
-
-    </dependencies>
 
 
 </project>

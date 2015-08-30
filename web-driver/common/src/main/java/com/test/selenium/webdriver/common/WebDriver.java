@@ -20,4 +20,6 @@ public interface WebDriver extends Closeable {
     String getPageSource();
 
     int getProcessId();
+
+    String getName();
 }

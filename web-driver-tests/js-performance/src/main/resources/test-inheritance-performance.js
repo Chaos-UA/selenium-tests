@@ -1,18 +1,29 @@
 function testPerformance() {
     return {
-        prototypeChain: testPrototypeChain(),
-        prototype: testPrototype(),
-        nonPrototype: testNonPrototype(),
-        testFunction: testFunction(),
-        direct: testDirect(),
-        longPrototypeChain: testLongPrototypeChain(),
-        prototypeWithGeter: testPrototypeWithGeter()
+        direct: getExecutionTime(testDirect),
+        testFunction: getExecutionTime(testFunction),
+        nonPrototype: getExecutionTime(testNonPrototype),
+        prototypeChain: getExecutionTime(testPrototypeChain),
+        prototype: getExecutionTime(testPrototype),
+        longPrototypeChain: getExecutionTime(testLongPrototypeChain),
+        prototypeWithGetter: getExecutionTime(testPrototypeWithGetter)
+
     }
+}
+var DELTA = 10;
+var ITERATIONS = 1000;
+
+function getExecutionTime(f) {
+    var start = new Date().getTime();
+    f();
+    var end = new Date().getTime();
+    var diff = end - start;
+    return diff;
 }
 
 function testPrototypeChain() {
-    var start = new Date().getTime();
-    function Parent() { this.delta = 10; };
+
+    function Parent() { this.delta = DELTA; };
 
     function ChildA(){};
     ChildA.prototype = new Parent();
@@ -28,45 +39,32 @@ function testPrototypeChain() {
     function nestedFn() {
         var child = new ChildE();
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += child.delta;
                 }
             }
         }
         console.log('Final result: ' + counter);
     }
-
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
 
 
 function testPrototype() {
-    var start = new Date().getTime();
     function Parent() {  };
-    Parent.prototype.delta = 10;
+    Parent.prototype.delta = DELTA;
 
     function ChildA(){};
     ChildA.prototype = new Parent();
-    function ChildB(){}
-    ChildB.prototype = new ChildA();
-    function ChildC(){}
-    ChildC.prototype = new ChildB();
-    function ChildD(){};
-    ChildD.prototype = new ChildC();
-    function ChildE(){};
-    ChildE.prototype = new ChildD();
 
     function nestedFn() {
         var child = new Parent();
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += child.delta;
                 }
             }
@@ -75,15 +73,11 @@ function testPrototype() {
     }
 
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
 
-function testPrototypeWithGeter() {
-    var start = new Date().getTime();
+function testPrototypeWithGetter() {
     function Parent() {  };
-    Parent.prototype.delta = 10;
+    Parent.prototype.delta = DELTA;
     Parent.prototype.getDelta = function() {
         return this.delta;
     };
@@ -102,9 +96,9 @@ function testPrototypeWithGeter() {
     function nestedFn() {
         var child = new ChildE();
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += child.getDelta();
                 }
             }
@@ -113,32 +107,16 @@ function testPrototypeWithGeter() {
     }
 
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
 
 function testNonPrototype() {
-    var start = new Date().getTime();
-    function Parent() { this.delta = 10; };
-
-    function ChildA(){};
-    ChildA.prototype = new Parent();
-    function ChildB(){}
-    ChildB.prototype = new ChildA();
-    function ChildC(){}
-    ChildC.prototype = new ChildB();
-    function ChildD(){};
-    ChildD.prototype = new ChildC();
-    function ChildE(){};
-    ChildE.prototype = new ChildD();
-
+    function Parent() { this.delta = DELTA; };
     function nestedFn() {
         var child = new Parent();
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += child.delta;
                 }
             }
@@ -147,23 +125,19 @@ function testNonPrototype() {
     }
 
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
 
 function testFunction() {
-    var start = new Date().getTime();
     function getDelta(object) {
         return object.delta;
     }
 
     function nestedFn() {
-        var child = {delta: 10};
+        var child = {delta: DELTA};
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += getDelta(child);
                 }
             }
@@ -172,18 +146,10 @@ function testFunction() {
     }
 
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
 
 
-
-
-
-
 function testLongPrototypeChain() {
-    var start = new Date().getTime();
     function Parent() {  };
     Parent.prototype.sub = new SubChildE();
     function ChildA(){};
@@ -196,9 +162,7 @@ function testLongPrototypeChain() {
     ChildD.prototype = new ChildC();
     function ChildE(){};
     ChildE.prototype = new ChildD();
-
-    function SubParent() { this.delta = 10; };
-
+    function SubParent() { this.delta = DELTA; };
     function SubChildA(){};
     SubChildA.prototype = new SubParent();
     function SubChildB(){}
@@ -214,9 +178,9 @@ function testLongPrototypeChain() {
     function nestedFn() {
         var child = new ChildE();
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += child.sub.delta;
                 }
             }
@@ -225,16 +189,10 @@ function testLongPrototypeChain() {
     }
 
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
 
-
-
 function testPrototypeChain() {
-    var start = new Date().getTime();
-    function Parent() { this.delta = 10; };
+    function Parent() { this.delta = DELTA; };
 
     function ChildA(){};
     ChildA.prototype = new Parent();
@@ -250,9 +208,9 @@ function testPrototypeChain() {
     function nestedFn() {
         var child = new ChildE();
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += child.delta;
                 }
             }
@@ -261,36 +219,20 @@ function testPrototypeChain() {
     }
 
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
 
-
-
-
-
 function testDirect() {
-    var start = new Date().getTime();
-
-
     function nestedFn() {
-        var delta = 10;
+        var delta = DELTA;
         var counter = 0;
-        for(var i = 0; i < 1000; i++) {
-            for(var j = 0; j < 1000; j++) {
-                for(var k = 0; k < 1000; k++) {
+        for(var i = 0; i < ITERATIONS; i++) {
+            for(var j = 0; j < ITERATIONS; j++) {
+                for(var k = 0; k < ITERATIONS; k++) {
                     counter += delta;
                 }
             }
         }
         console.log('Final result: ' + counter);
     }
-
     nestedFn();
-    var end = new Date().getTime();
-    var diff = end - start;
-    return diff;
 }
-
-return testPerformance();
