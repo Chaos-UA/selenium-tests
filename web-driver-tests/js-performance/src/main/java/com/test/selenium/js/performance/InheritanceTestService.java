@@ -45,6 +45,7 @@ public class InheritanceTestService {
                 webDriverWatcher.close();
                 webDriverWatcher.getProcessStatuses();
                 LineData.Data data = new LineData.Data();
+                lineData.getDatas().add(data);
                 data.setName(webDriverWatcher.getName());
                 for (ProcessStatus processStatus : webDriverWatcher.getProcessStatuses()) {
                     data.getSeries().add(new LineData.Series(processStatus.getTime(), processStatus.getRss()));

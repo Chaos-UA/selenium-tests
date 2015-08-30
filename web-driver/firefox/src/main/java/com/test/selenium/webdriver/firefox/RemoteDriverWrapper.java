@@ -15,11 +15,12 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
     private final RemoteWebDriver webDriver;
     private final boolean canTakeScreenshot;
 
-    private final int pid;
+    private final int pid = 0;
 
-    public RemoteDriverWrapper(RemoteWebDriver remoteWebDriver, DriverService service) {
+    public RemoteDriverWrapper(RemoteWebDriver remoteWebDriver) {
         this.webDriver = remoteWebDriver;
         this.canTakeScreenshot = remoteWebDriver instanceof TakesScreenshot;
+        /*
         try {
             Field field = DriverService.class.getDeclaredField("process");
             field.setAccessible(true);
@@ -38,6 +39,7 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
         catch (Throwable t) {
             throw new RuntimeException(t);
         }
+        */
     }
 
     @Override
