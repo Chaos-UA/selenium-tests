@@ -5,9 +5,9 @@ package com.test.selenium.webdriver.common;
 public class ProcessStatus {
 
     /**
-     * Sum of rss memory usage by process and all its child processes
+     * Sum of private process memory by process and all its child processes
      */
-    private final int rss;
+    private final int uss;
 
     /**
      * CPU usage in percent by process and all its child processes
@@ -25,16 +25,16 @@ public class ProcessStatus {
     private final int time;
 
 
-    public ProcessStatus(int rss, double cpu, int processes, int time) {
-        this.rss = rss;
+    public ProcessStatus(int uss, double cpu, int processes, int time) {
+        this.uss = uss;
         this.cpu = cpu;
         this.processes = processes;
         this.time = time;
     }
 
 
-    public int getRss() {
-        return rss;
+    public int getUss() {
+        return uss;
     }
 
     public double getCpu() {
@@ -52,7 +52,7 @@ public class ProcessStatus {
     @Override
     public String toString() {
         return "ProcessStatus{" +
-                "rss=" + rss +
+                "uss=" + uss +
                 ", cpu=" + cpu +
                 ", processes=" + processes +
                 ", time=" + time +

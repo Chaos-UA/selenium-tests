@@ -51,7 +51,7 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
 
     @Override
     public byte[] getScreenshot() {
-        return ((TakesScreenshot) this).getScreenshotAs(OutputType.BYTES);
+        return webDriver.getScreenshotAs(OutputType.BYTES);
     }
 
     @Override

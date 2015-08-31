@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class WebDriverWatcher implements WebDriver {
-    private static final long STATUS_CATCH_INTERVAL = 500;
+    private static final long STATUS_CATCH_INTERVAL = 200;
 
     private final WebDriver webDriver;
     private final long createdAt;
@@ -30,18 +30,22 @@ public class WebDriverWatcher implements WebDriver {
                         Thread.sleep(STATUS_CATCH_INTERVAL);
                     } catch (Throwable e) {
                         LogUtil.getLogger().error("Exception during getting process status", e);
-                        break;
                     }
                 }
             }
         };
+        watcher.start();
+        catchProcessStatus();
     }
 
     public List<ProcessStatus> getProcessStatuses() {
         return processStatuses;
     }
 
-    private void catchProcessStatus() {
+    private synchronized void catchProcessStatus() {
+        if (isClosed) {
+            return;
+        }
         processStatuses.add(ProcessUtil.getProcessStatusWithSubprocesses(
                 getProcessId(),
                 (int) (System.currentTimeMillis() - createdAt))
@@ -49,7 +53,7 @@ public class WebDriverWatcher implements WebDriver {
     }
 
     @Override
-    public void close() {
+    public synchronized void close() {
         isClosed = true;
         webDriver.close();
     }
@@ -76,7 +80,11 @@ public class WebDriverWatcher implements WebDriver {
 
     @Override
     public void get(String s) {
+        webDriver.get("about:blank");
         webDriver.get(s);
+        if (webDriver.getCurrentUrl().equals("about:blank")) {
+            throw new RuntimeException("about:blank");
+        }
     }
 
     @Override

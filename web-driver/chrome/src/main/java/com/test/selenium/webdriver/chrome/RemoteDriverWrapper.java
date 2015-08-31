@@ -20,8 +20,10 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
     private final boolean canTakeScreenshot;
 
     private final int pid;
+    private final String name;
 
-    public RemoteDriverWrapper(RemoteWebDriver remoteWebDriver, DriverService service) {
+    public RemoteDriverWrapper(RemoteWebDriver remoteWebDriver, DriverService service, String name) {
+        this.name = name;
         this.webDriver = remoteWebDriver;
         this.canTakeScreenshot = remoteWebDriver instanceof TakesScreenshot;
         try {
@@ -56,7 +58,7 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
 
     @Override
     public byte[] getScreenshot() {
-        return ((TakesScreenshot) this).getScreenshotAs(OutputType.BYTES);
+        return webDriver.getScreenshotAs(OutputType.BYTES);
     }
 
     @Override
@@ -97,6 +99,6 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
 
     @Override
     public String getName() {
-        return "Chrome";
+        return this.name;
     }
 }

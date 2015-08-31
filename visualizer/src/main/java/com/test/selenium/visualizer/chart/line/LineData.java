@@ -7,11 +7,13 @@ import java.util.List;
 public class LineData {
     private final String xLabel;
     private final String yLabel;
+    private final String title;
     private final List<Data> datas = new ArrayList<>();
 
-    public LineData(String xLabel, String yLabel) {
+    public LineData(String xLabel, String yLabel, String title) {
         this.xLabel = xLabel;
         this.yLabel = yLabel;
+        this.title = title;
     }
 
     public String getxLabel() {
@@ -25,6 +27,10 @@ public class LineData {
 
     public List<Data> getDatas() {
         return datas;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public static class Data {

@@ -7,10 +7,14 @@ import org.apache.commons.exec.PumpStreamHandler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProcessUtil {
     public static Result execute(String cmd) {
@@ -31,24 +35,23 @@ public class ProcessUtil {
 
     public static ProcessStatus getProcessStatusWithSubprocesses(int processId, int time) {
         AtomicReference<Double> cpu = new AtomicReference<>(0D);
-        AtomicInteger rss = new AtomicInteger(0);
+        AtomicInteger memory = new AtomicInteger(0);
         class Methods {
             void calculate(int id) {
-                Result result = execute(String.format("ps -p %s -o %%cpu,rss", id));
+                Result result = execute(String.format("ps -p %s -o %%cpu", id));
                 if (result.getExitCode() != 0) {
-                    throw new RuntimeException(result.toString());
+                    throw new RuntimeException(result.toString() + "\nid="+id);
                 }
                 String[] lines = result.getOutput().split("\n");
                 if (lines.length != 2) {
                     throw new RuntimeException("Should contain 2 lines");
                 }
-                if (!lines[0].equals("%CPU   RSS")) {
+                if (!lines[0].equals("%CPU")) {
                     throw new RuntimeException();
                 }
                 lines[1] = lines[1].trim();
-                String[] cols = lines[1].split("[ ]+");
-                cpu.set(Double.parseDouble(cols[0]) + cpu.get());
-                rss.set(rss.get() + Integer.parseInt(cols[1]));
+                cpu.set(cpu.get() + Double.parseDouble(lines[1].trim()));
+                memory.set(memory.get() + getPrivateMemory(id));
             }
         }
         Methods methods = new Methods();
@@ -56,7 +59,23 @@ public class ProcessUtil {
         for (int id : ids) {
             methods.calculate(id);
         }
-        return new ProcessStatus(rss.get(), cpu.get(), ids.size(), time);
+
+        //
+        return new ProcessStatus(memory.get(), cpu.get(), ids.size(), time);
+    }
+
+    public static int getPrivateMemory(int pid) {
+        int privateDirty = 0;
+        Result result = execute(String.format("cat /proc/%s/smaps", pid));
+        if (result.getExitCode() != 0) {
+            throw new RuntimeException();
+        }
+        Pattern pattern = Pattern.compile("Private_Dirty: +(\\d+)");
+        Matcher matcher = pattern.matcher(result.getOutput());
+        while (matcher.find()) {
+            privateDirty += Integer.parseInt(matcher.group(1));
+        }
+        return privateDirty;
     }
 
     /**

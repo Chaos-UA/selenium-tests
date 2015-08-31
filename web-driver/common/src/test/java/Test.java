@@ -10,7 +10,8 @@ public class Test {
 
     @org.junit.Test
     public void testProcessUtil() throws IOException {
-        int processId = 3270;
+        int processId = 1840;
+        System.out.println(ProcessUtil.getPrivateMemory(processId));
         System.out.println(ProcessUtil.getAllProcessIds(processId));
         System.out.println(ProcessUtil.getProcessStatusWithSubprocesses(processId, 0));
     }

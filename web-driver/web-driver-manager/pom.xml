@@ -35,16 +35,19 @@
                         <phase>compile</phase>
                         <configuration>
                             <tasks>
+
                                 <copy todir="${project.build.target.directory.driver.jars}"
                                       verbose="true"
                                       overwrite="true">
                                     <fileset dir="../phantomjs1/target/build"/>
                                 </copy>
+
                                 <copy todir="${project.build.target.directory.driver.jars}"
                                       verbose="true"
                                       overwrite="true">
                                     <fileset dir="../firefox/target/build"/>
                                 </copy>
+
                                 <copy todir="${project.build.target.directory.driver.jars}"
                                       verbose="true"
                                       overwrite="true">

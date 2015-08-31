@@ -2,6 +2,7 @@ package com.test.selenium.webdriver.firefox;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.os.CommandLine;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.service.DriverService;
@@ -15,16 +16,16 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
     private final RemoteWebDriver webDriver;
     private final boolean canTakeScreenshot;
 
-    private final int pid = 0;
+    private final int pid;
 
-    public RemoteDriverWrapper(RemoteWebDriver remoteWebDriver) {
+    public RemoteDriverWrapper(RemoteWebDriver remoteWebDriver, FirefoxBinary firefoxBinary) {
         this.webDriver = remoteWebDriver;
         this.canTakeScreenshot = remoteWebDriver instanceof TakesScreenshot;
-        /*
+
         try {
-            Field field = DriverService.class.getDeclaredField("process");
+            Field field = FirefoxBinary.class.getDeclaredField("process");
             field.setAccessible(true);
-            CommandLine cmd = (CommandLine) field.get(service);
+            CommandLine cmd = (CommandLine) field.get(firefoxBinary);
             field = CommandLine.class.getDeclaredField("process");
             field.setAccessible(true);
             Object unixProcess = field.get(cmd);
@@ -39,7 +40,7 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
         catch (Throwable t) {
             throw new RuntimeException(t);
         }
-        */
+
     }
 
     @Override
@@ -54,7 +55,7 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
 
     @Override
     public byte[] getScreenshot() {
-        return ((TakesScreenshot) this).getScreenshotAs(OutputType.BYTES);
+        return webDriver.getScreenshotAs(OutputType.BYTES);
     }
 
     @Override

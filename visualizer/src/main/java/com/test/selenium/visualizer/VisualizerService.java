@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 @Service
 public class VisualizerService {
 
+    private final int width = 1600;
+    private final int height = 600;
+
     @PostConstruct
     protected void init() throws Throwable {
         Thread t = new Thread("JavaFX Init Thread") {
@@ -63,7 +66,7 @@ public class VisualizerService {
                 }
                 stackedBarChart.getData().add(series);
             }
-            stage.setScene(new Scene(stackedBarChart, 800, 600));
+            stage.setScene(new Scene(stackedBarChart, width, height));
             stage.show();
         });
     }
@@ -84,7 +87,8 @@ public class VisualizerService {
                 serieses.add(series);
             }
             LineChart chart = new LineChart(xAxis, yAxis, FXCollections.observableArrayList(serieses));
-            stage.setScene(new Scene(chart));
+            chart.setTitle(lineData.getTitle());
+            stage.setScene(new Scene(chart, width, height));
             stage.show();
         });
     }
