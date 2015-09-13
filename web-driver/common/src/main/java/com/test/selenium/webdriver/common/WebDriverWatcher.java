@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class WebDriverWatcher implements WebDriver {
-    private static final long STATUS_CATCH_INTERVAL = 200;
 
     private final WebDriver webDriver;
     private final long createdAt;
@@ -18,6 +17,10 @@ public class WebDriverWatcher implements WebDriver {
     private transient boolean isClosed;
 
     public WebDriverWatcher(WebDriver webDriver) {
+        this(webDriver, 200);
+    }
+
+    public WebDriverWatcher(WebDriver webDriver, long processStatusCatchInterval) {
         this.webDriver = webDriver;
         this.createdAt = System.currentTimeMillis();
         watcher = new Thread() {
@@ -26,8 +29,14 @@ public class WebDriverWatcher implements WebDriver {
             public void run() {
                 while (!isClosed) {
                     try {
+                        long startCatchTime = System.currentTimeMillis();
                         catchProcessStatus();
-                        Thread.sleep(STATUS_CATCH_INTERVAL);
+                        long catchTime = System.currentTimeMillis() - startCatchTime;
+                        long sleepingTime = processStatusCatchInterval - catchTime;
+                        if (sleepingTime < 0) {
+                            sleepingTime = 0;
+                        }
+                        Thread.sleep(sleepingTime);
                     } catch (Throwable e) {
                         LogUtil.getLogger().error("Exception during getting process status", e);
                     }
@@ -110,5 +119,15 @@ public class WebDriverWatcher implements WebDriver {
     @Override
     public String getName() {
         return webDriver.getName();
+    }
+
+    @Override
+    public List<WebElement> findElementsByXpath(String xpath) {
+        return webDriver.findElementsByXpath(xpath);
+    }
+
+    @Override
+    public WebElement findElementByXpath(String xpath) {
+        return webDriver.findElementByXpath(xpath);
     }
 }

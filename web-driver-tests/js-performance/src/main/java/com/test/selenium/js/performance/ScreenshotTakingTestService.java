@@ -10,6 +10,7 @@ import com.test.selenium.webdriver.common.ProcessStatus;
 import com.test.selenium.webdriver.common.WebDriverFactory;
 import com.test.selenium.webdriver.common.WebDriverWatcher;
 import com.test.selenium.webdriver.manager.WebDriverService;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,8 @@ import java.util.List;
 public class ScreenshotTakingTestService {
     public static final List<String> PAGES = Arrays.asList(
             "http://unkur.com/",
-            "http://i-butler.eu/en/",
+            "https://github.com/showcases/software-development-tools/",
+            "https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_and_their_capitals_in_native_languages/",
             "http://habrahabr.ru/",
             "https://www.youtube.com/",
             "http://www.ebay.com/",
@@ -35,6 +37,7 @@ public class ScreenshotTakingTestService {
 
     @Autowired
     private WebDriverService webDriverService;
+
 
     public void test() throws Throwable {
 

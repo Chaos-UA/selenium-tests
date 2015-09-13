@@ -1,13 +1,18 @@
 package com.test.selenium.webdriver.phantomjs1;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import com.test.selenium.webdriver.common.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.os.CommandLine;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.service.DriverService;
 
+import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.WebDriver {
@@ -93,5 +98,123 @@ public class RemoteDriverWrapper implements com.test.selenium.webdriver.common.W
     @Override
     public String getName() {
         return "Phantomjs1";
+    }
+
+    @Override
+    public List<WebElement> findElementsByXpath(String xpath) {
+        return toElements(webDriver.findElementsByXPath(xpath));
+    }
+
+    @Override
+    public WebElement findElementByXpath(String xpath) {
+        return toElement(webDriver.findElementByXPath(xpath));
+    }
+
+
+    public static WebElement toElement(org.openqa.selenium.WebElement webElement) {
+        return new WebElementImpl(webElement);
+    }
+
+    public static List<WebElement> toElements(List<org.openqa.selenium.WebElement> webElements) {
+        return webElements.stream().map(v -> new WebElementImpl(v)).collect(Collectors.toList());
+    }
+
+    public static class WebElementImpl implements WebElement {
+
+        private final org.openqa.selenium.WebElement webElement;
+
+        public WebElementImpl(org.openqa.selenium.WebElement webElement) {
+            this.webElement = webElement;
+        }
+
+        @Override
+        public void click() {
+            webElement.click();
+        }
+
+        @Override
+        public void submit() {
+            webElement.submit();
+        }
+
+        @Override
+        public void sendKeys(CharSequence... charSequences) {
+            webElement.sendKeys(charSequences);
+        }
+
+        @Override
+        public void clear() {
+            webElement.clear();
+        }
+
+        @Override
+        public String getTagName() {
+            return webElement.getTagName();
+        }
+
+        @Override
+        public String getAttribute(String s) {
+            return webElement.getAttribute(s);
+        }
+
+        @Override
+        public boolean isSelected() {
+            return webElement.isSelected();
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return webElement.isEnabled();
+        }
+
+        @Override
+        public String getText() {
+            return webElement.getText();
+        }
+
+        @Override
+        public List<WebElement> findElementsByXpath(String xpath) {
+            return toElements(webElement.findElements(By.xpath(xpath)));
+        }
+
+        @Override
+        public WebElement findElementByXpath(String xpath) {
+            return toElement(webElement.findElement(By.xpath(xpath)));
+        }
+
+        public List<org.openqa.selenium.WebElement> findElements(By by) {
+            return webElement.findElements(by);
+        }
+
+        public org.openqa.selenium.WebElement findElement(By by) {
+            return webElement.findElement(by);
+        }
+
+        @Override
+        public boolean isDisplayed() {
+            return webElement.isDisplayed();
+        }
+
+        @Override
+        public Point getLocation() {
+            org.openqa.selenium.Point point = webElement.getLocation();
+            return new Point(point.x, point.y);
+        }
+
+        @Override
+        public java.awt.Dimension getSize() {
+            org.openqa.selenium.Dimension d = webElement.getSize();
+            return new java.awt.Dimension(d.width, d.height);
+        }
+
+        @Override
+        public String getCssValue(String s) {
+            return webElement.getCssValue(s);
+        }
+
+        @Override
+        public String toString() {
+            return webElement.toString();
+        }
     }
 }

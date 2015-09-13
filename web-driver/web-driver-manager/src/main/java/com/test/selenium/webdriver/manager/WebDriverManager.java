@@ -58,6 +58,7 @@ public class WebDriverManager {
             WEB_DRIVER_FACTORIES = webDriverFactories.toArray(new WebDriverFactory[0]);
         }
         catch (Throwable t) {
+            LogUtil.getLogger().debug("Initialization error", t);
             throw new RuntimeException("Initialization error", t);
         }
     }
