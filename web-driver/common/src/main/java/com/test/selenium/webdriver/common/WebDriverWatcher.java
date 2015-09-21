@@ -1,10 +1,6 @@
 package com.test.selenium.webdriver.common;
 
 
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
-
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,7 +58,7 @@ public class WebDriverWatcher implements WebDriver {
     }
 
     @Override
-    public synchronized void close() {
+    public void close() {
         isClosed = true;
         webDriver.close();
     }

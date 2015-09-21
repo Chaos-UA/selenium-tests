@@ -9,6 +9,7 @@ public class InheritanceTestLauncher {
     public static void main(String[] args) throws Throwable {
         try {
             ApplicationConfiguration.getApplicationContext().getBean(InheritanceTestService.class).test();
+            System.exit(0);
         }
         catch (Throwable t) {
             LogUtil.getLogger().error("Exception", t);

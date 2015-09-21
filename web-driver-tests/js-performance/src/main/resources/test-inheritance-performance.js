@@ -1,3 +1,6 @@
+/**
+ * Main function of the test
+ */
 function testPerformance() {
     return {
         direct: getExecutionTime(testDirect),
@@ -10,7 +13,15 @@ function testPerformance() {
 
     }
 }
+
+/**
+ * Value that will be used in functions.
+ */
 var DELTA = 10;
+
+/**
+ * Number of iterations^3
+ */
 var ITERATIONS = 1000;
 
 function getExecutionTime(f) {
@@ -21,6 +32,10 @@ function getExecutionTime(f) {
     return diff;
 }
 
+/**
+ * Prototype chain with 5 children and property on parent object.
+ * ChildE->ChildD->ChildC->ChildB->ChildA->Parent->delta
+ */
 function testPrototypeChain() {
 
     function Parent() { this.delta = DELTA; };
@@ -51,7 +66,10 @@ function testPrototypeChain() {
     nestedFn();
 }
 
-
+/**
+ * Prototype chain with 1 children and property on parent object
+ * ChildA->Parent->delta
+ */
 function testPrototype() {
     function Parent() {  };
     Parent.prototype.delta = DELTA;
@@ -75,6 +93,10 @@ function testPrototype() {
     nestedFn();
 }
 
+/**
+ * Prototype chain with 5 children and method to get property on parent object
+ * ChildE->ChildD->ChildC->ChildB->ChildA->Parent->getDelta()
+ */
 function testPrototypeWithGetter() {
     function Parent() {  };
     Parent.prototype.delta = DELTA;
@@ -109,6 +131,10 @@ function testPrototypeWithGetter() {
     nestedFn();
 }
 
+/**
+ * Property available on target object without prototype chain
+ * Parent->delta
+ */
 function testNonPrototype() {
     function Parent() { this.delta = DELTA; };
     function nestedFn() {
@@ -127,6 +153,10 @@ function testNonPrototype() {
     nestedFn();
 }
 
+/**
+ * Property available on target object, but value is retrieved from helper/util function (non OOP style)
+ * getDelta(object)
+ */
 function testFunction() {
     function getDelta(object) {
         return object.delta;
@@ -148,7 +178,13 @@ function testFunction() {
     nestedFn();
 }
 
-
+/**
+ * More complex prototype chain.
+ * Parent object has object with prototype chain of 5 children, which contain target property.
+ * Also parent object has 5 children.
+ * So to access target object (Parent.sub.delta) following chain pass is required:
+ * ChildE->ChildD->ChildC->ChildB->ChildA->Parent->SubChildE->SubChildD->SubChildC->SubChildB->SubChildA->SubParent->delta
+ */
 function testLongPrototypeChain() {
     function Parent() {  };
     Parent.prototype.sub = new SubChildE();
@@ -191,36 +227,9 @@ function testLongPrototypeChain() {
     nestedFn();
 }
 
-function testPrototypeChain() {
-    function Parent() { this.delta = DELTA; };
-
-    function ChildA(){};
-    ChildA.prototype = new Parent();
-    function ChildB(){}
-    ChildB.prototype = new ChildA();
-    function ChildC(){}
-    ChildC.prototype = new ChildB();
-    function ChildD(){};
-    ChildD.prototype = new ChildC();
-    function ChildE(){};
-    ChildE.prototype = new ChildD();
-
-    function nestedFn() {
-        var child = new ChildE();
-        var counter = 0;
-        for(var i = 0; i < ITERATIONS; i++) {
-            for(var j = 0; j < ITERATIONS; j++) {
-                for(var k = 0; k < ITERATIONS; k++) {
-                    counter += child.delta;
-                }
-            }
-        }
-        console.log('Final result: ' + counter);
-    }
-
-    nestedFn();
-}
-
+/**
+ * Test target value directly as local variable
+ */
 function testDirect() {
     function nestedFn() {
         var delta = DELTA;

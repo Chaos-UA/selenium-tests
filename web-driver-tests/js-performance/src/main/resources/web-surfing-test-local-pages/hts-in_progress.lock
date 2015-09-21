@@ -1,0 +1,7 @@
+Mirror in progress since Sun, 20 Sep 2015 20:44:26 .. please wait!
+webhttrack -q -%i -Y http://unkur.com https://github.com/showcases/software-development-tools https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_and_their_capitals_in_native_languages http://habrahabr.ru http://www.ebay.com https://www.yandex.com https://www.google.com.ua https://www.youtube.com https://www.google.com.ua/search?q=images&es_sm=93&biw=1855&bih=995&tbm=isch&source=lnms&sa=X&ved=0CAYQ_AUoAWoVChMIhueMpPr0xwIVg_1yCh3_TAx5&dpr=1 -O "/home/volodymyr/websites/web-surfing-test" -n -%P -N0 -s2 -p7 -D -a -K0 -c8 -%k -r2 -%e2 -A99000 -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2013], %s -->" +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/* -%s -%u 
+To pause the engine: create an empty file named 'hts-stop.lock'
+PID=10035
+UID=1000
+GID=1000
+START=1442771066

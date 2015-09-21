@@ -7,8 +7,8 @@ import com.test.selenium.visualizer.chart.bar.Data;
 import com.test.selenium.visualizer.chart.bar.Series;
 import com.test.selenium.visualizer.chart.line.LineData;
 import com.test.selenium.webdriver.common.ProcessStatus;
-import com.test.selenium.webdriver.common.WebDriverWatcher;
 import com.test.selenium.webdriver.common.WebDriverFactory;
+import com.test.selenium.webdriver.common.WebDriverWatcher;
 import com.test.selenium.webdriver.manager.WebDriverService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +68,15 @@ public class InheritanceTestService {
                 }
             }
         }
-        visualizerService.showStackedBarChar(barData);
-        visualizerService.showLineChart(memoryChart);
-        visualizerService.showLineChart(cpuChart);
-        visualizerService.showLineChart(processesChart);
+        //visualizerService.showStackedBarChar(barData);
+        //visualizerService.showLineChart(memoryChart);
+        //visualizerService.showLineChart(cpuChart);
+        //visualizerService.showLineChart(processesChart);
+        visualizerService.showAll(
+                visualizerService.buildStackedBarChart(barData),
+                visualizerService.buildLineChart(memoryChart),
+                visualizerService.buildLineChart(cpuChart),
+                visualizerService.buildLineChart(processesChart)
+        );
     }
 }

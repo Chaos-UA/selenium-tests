@@ -8,6 +8,7 @@ public class CreateDestroyDriverTestLauncher {
     public static void main(String[] args) throws Throwable {
         try {
             ApplicationConfiguration.getApplicationContext().getBean(CreateDestroyTestService.class).test();
+            System.exit(0);
         }
         catch (Throwable t) {
             LogUtil.getLogger().error("Exception", t);

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>GitHub Training</title>
+ <link href="http://training.github.com/"/>
+ <link type="application/atom+xml" href="http://training.github.com/atom.xml" rel="self"/>
+ <updated>2015-09-19T15:03:09+00:00</updated>
+ <id>http://training.github.com/</id>
+ <author>
+   <name>GitHub Training Team</name>
+   <email>training@github.com</email>
+ </author>
+
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+     <entry>
+       <title>GitHub for Developers – Part 2</title>
+       <link href="http://training.github.com/articles/developer-part-2"/>
+       <updated>2015-11-24T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/developer-part-2</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub for Developers – Part 1</title>
+       <link href="http://training.github.com/articles/developer-part-1"/>
+       <updated>2015-11-23T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/developer-part-1</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub for Everyone</title>
+       <link href="http://training.github.com/articles/everyone"/>
+       <updated>2015-11-10T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/everyone</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>Introduction to GitHub</title>
+       <link href="http://training.github.com/articles/intro-to-github"/>
+       <updated>2015-11-04T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/intro-to-github</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub for Developers – Part 2</title>
+       <link href="http://training.github.com/articles/developer-part-2"/>
+       <updated>2015-10-29T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/developer-part-2</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub for Developers – Part 1</title>
+       <link href="http://training.github.com/articles/developer-part-1"/>
+       <updated>2015-10-28T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/developer-part-1</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub for Everyone</title>
+       <link href="http://training.github.com/articles/everyone"/>
+       <updated>2015-10-21T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/everyone</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub Review: Getting Started with GitHub Pages</title>
+       <link href="http://training.github.com/articles/github-pages"/>
+       <updated>2015-10-14T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/github-pages</id>
+       <content type="html">&lt;p&gt;GitHub Pages are free, public websites hosted and published directly from your GitHub repository. They can be used to communicate information about users, organizations, or projects. By the end of this one hour course, you will have a GitHub Pages website set up and ready for your content. Along the way, we will discuss tips, tricks, and best practices for your GitHub Pages project. We will also view some inspiring examples of GitHub Pages in the wild.&lt;/p&gt;
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>Introduction to GitHub</title>
+       <link href="http://training.github.com/articles/intro-to-github"/>
+       <updated>2015-10-07T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/intro-to-github</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub for Developers – Part 2</title>
+       <link href="http://training.github.com/articles/developer-part-2"/>
+       <updated>2015-09-30T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/developer-part-2</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub for Developers – Part 1</title>
+       <link href="http://training.github.com/articles/developer-part-1"/>
+       <updated>2015-09-29T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/developer-part-1</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub Review: Getting started with GitHub + CI/CD</title>
+       <link href="http://training.github.com/articles/github-review-ci-cd"/>
+       <updated>2015-09-21T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/github-review-ci-cd</id>
+       <content type="html">&lt;p&gt;GitHub makes it easy to collaborate on code, but its true power comes when used as the centerpiece of a modern deployment pipeline. This class will start with an overview of the concepts behind continuous integration (CI) and continuous delivery (CD), two cornerstones of good software development. After that, we&#39;ll cover how to start incorporating these practices into your workflow, by using GitHub to integrate with best-of-breed 3rd party tools.&lt;/p&gt;
+
+&lt;p&gt;Before class, please make sure to sign up for a &lt;a href=&quot;https://signup.heroku.com/www-header&quot;&gt;Heroku&lt;/a&gt; account (it&#39;s free).&lt;/p&gt;
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub Review: Workflows &amp; Features</title>
+       <link href="http://training.github.com/articles/github-review-workflows-and-features"/>
+       <updated>2015-01-01T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/github-review-workflows-and-features</id>
+       <content type="html">&lt;p&gt;TBD&lt;/p&gt;
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub Review: [Topic of the Month]</title>
+       <link href="http://training.github.com/articles/github-review-topic-of-the-month"/>
+       <updated>2015-01-01T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/github-review-topic-of-the-month</id>
+       <content type="html">&lt;p&gt;TBD&lt;/p&gt;
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub Review: Clients, Editors, &amp; IDEs</title>
+       <link href="http://training.github.com/articles/github-review-clients-editors-ides"/>
+       <updated>2015-01-01T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/github-review-clients-editors-ides</id>
+       <content type="html">&lt;p&gt;TBD&lt;/p&gt;
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>GitHub &amp; Git Foundations</title>
+       <link href="http://training.github.com/articles/git-foundations"/>
+       <updated>2014-04-22T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/git-foundations</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+     <entry>
+       <title>Advanced GitHub &amp; Git</title>
+       <link href="http://training.github.com/articles/advance-git"/>
+       <updated>2013-04-22T00:00:00+00:00</updated>
+       <id>http://training.github.com/articles/advance-git</id>
+       <content type="html">
+</content>
+     </entry>
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+   
+ 
+
+</feed>

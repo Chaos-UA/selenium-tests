@@ -5,15 +5,13 @@ import com.test.selenium.visualizer.VisualizerService;
 import com.test.selenium.visualizer.chart.bar.BarData;
 import com.test.selenium.visualizer.chart.bar.Data;
 import com.test.selenium.visualizer.chart.bar.Series;
-import com.test.selenium.visualizer.chart.line.LineData;
-import com.test.selenium.webdriver.common.ProcessStatus;
 import com.test.selenium.webdriver.common.WebDriverFactory;
 import com.test.selenium.webdriver.common.WebDriverWatcher;
 import com.test.selenium.webdriver.manager.WebDriverService;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +45,15 @@ public class ScreenshotTakingTestService {
         for (WebDriverFactory webDriverFactory : webDriverService.getWebDriverFactories()) {
             GcUtil.gc();
             try (WebDriverWatcher webDriverWatcher = new WebDriverWatcher(webDriverFactory.createWebDriver())) {
+                if (true) {
+                    webDriverWatcher.get("http://unkur.com");
+                    String dir = System.getProperty("user.home") + "/Downloads/selenium-test/screenshots";// check screenshots manually
+                    new File(dir).mkdirs();
+                    try (FileOutputStream out = new FileOutputStream(dir + "/" + webDriverWatcher.getName() + ".png")) {
+                        out.write(webDriverWatcher.getScreenshot());
+                    }
+                    //continue;
+                }
                 List<Series> serieses = new ArrayList<>(PAGES.size());
                 for (String pageUrl : PAGES) {
                     GcUtil.gc();

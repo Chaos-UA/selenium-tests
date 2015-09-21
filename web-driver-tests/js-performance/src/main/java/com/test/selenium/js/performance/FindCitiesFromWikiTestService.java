@@ -31,8 +31,6 @@ public class FindCitiesFromWikiTestService {
 
     private Logger logger = LogUtil.getLogger();
 
-
-
     public void test() throws Throwable {
         BarData surfingData = new BarData();
         surfingData.setTitle("Group city names by countries (processing time)");
@@ -59,6 +57,7 @@ public class FindCitiesFromWikiTestService {
                 if (citiesByNameLinks.isEmpty()) {
                     throw new RuntimeException();
                 }
+                Set<URL> countryUrls = new HashSet<>(250);
                 for (URL citiesByNameLink : citiesByNameLinks) {// add
                     try {
                         logger.info("Processing url: " + citiesByNameLink);
@@ -106,6 +105,7 @@ public class FindCitiesFromWikiTestService {
                         }
                         // resolve countries and add city
                         for (RowData rowData : rowDatas) {
+                            countryUrls.add(rowData.getUrlToCountry());
                             getCountry(webDriverWatcher, rowData.getCountryName(), rowData.getUrlToCountry(), countries).getCities().add(rowData.getCityName());
                         }
                     }
@@ -114,6 +114,14 @@ public class FindCitiesFromWikiTestService {
                         throw t;
                     }
                 }
+                /*
+                if (true) {
+                    for (URL url : countryUrls) {
+                        System.out.println(url);
+                    }
+                    System.exit(1);
+                }
+                */
                 webDriverWatcher.close();
                 //
                 List<Series> seriesData = new ArrayList<>();
@@ -145,10 +153,16 @@ public class FindCitiesFromWikiTestService {
                 browserFoundCities.put(webDriverWatcher.getName(), countries);
             }
         }
-        visualizerService.showStackedBarChar(surfingData);
-        visualizerService.showLineChart(memoryChart);
-        visualizerService.showLineChart(cpuChart);
-        visualizerService.showLineChart(processesChart);
+        //visualizerService.showStackedBarChar(surfingData);
+        //visualizerService.showLineChart(memoryChart);
+        //visualizerService.showLineChart(cpuChart);
+        //visualizerService.showLineChart(processesChart);
+        visualizerService.showAll(
+                visualizerService.buildStackedBarChart(surfingData),
+                visualizerService.buildLineChart(memoryChart),
+                visualizerService.buildLineChart(cpuChart),
+                visualizerService.buildLineChart(processesChart)
+        );
         //
         List<Country> countries = browserFoundCities.get(browserFoundCities.keySet().stream().findFirst().get());
         boolean allResultsEquals = true;
